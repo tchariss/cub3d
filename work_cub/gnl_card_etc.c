@@ -61,7 +61,7 @@ typedef struct	all_s
     int		endian;
     float   l_2d;
     float   length_real;
-    float   h_y_2d;
+    //float   h_y_2d;
     float   h_wall_3d ;
 }				t_all;
 
@@ -132,10 +132,6 @@ int		gnl_card(t_all *all)
 
 void draw_cub(int x, int y, t_all *all, int color)
 {
-	// char *ad
-	// char ad;
-	// &ad = all;
-	
 	int x_max = x + PIX_SIZE; // pix_SIZE =32
 	int y_max = y + PIX_SIZE; // 100 + 32 -> y_max = 132
 	int save_x = x; // изначальной координате х (если 100)
@@ -151,83 +147,6 @@ void draw_cub(int x, int y, t_all *all, int color)
 		}
 		y++;
 	}
-}
-
-void after_draw_screen(t_all *all) /////////////////////////////////////
-{
-	// all->img = mlx_new_image(all->mlx, 808, 648);
-	// all->addr = mlx_get_data_addr(all->img, &all->bits_per_pixel, &all->line_length, &all->endian);
-	// void *mlx = 0;
-	// void *win = 0;
-	int	cor_x = 0;
-	int	cor_y = 0;
-	// player_2 st;
-	// all->plr = &st;
-	
-	//param_init(&st);
-	// all->mlx = mlx_init();
-	// all->win = mlx_new_window(all->mlx, 1020, 720, "hello, vikos");
-	//all->img = mlx_xpm_file_to_image(mlx, "./textures/north.xpm", &all->img_width, &all->img_height);
-	cor_y = 0;
-	all->y = 0; // на начало чтения строки 0-ой элемент массива
-	while (all->s[all->y] && all->y != all->row) // != NULL 
-	{
-		all->x = 0; // на начало чтения строки 0-ой элемент массива
-		cor_x = 0;
-		while (all->s[all->y][all->x] != '\0')
-		{
-			if (all->s[all->y][all->x] == '1') //[all->x++]
-			{	
-				draw_cub(cor_x, cor_y, all, 0xD4B8D9); // 0xD4B8D9
-			}
-			if (all->s[all->y][all->x] == '0')
-			{
-				draw_cub(cor_x, cor_y, all, 0xE5E5E5);
-			}
-			if (all->s[all->y][all->x] == 'N')
-			{
-				draw_cub(cor_x, cor_y, all, 0xE5E5E5);
-				all->plr.dir = -M_PI_2; // 270 граудсов, но смотрит вверх // M_PI + M_PI_2
-				//all->p = all->s[all->y][all->x]; // передаю координаты игроку p, если нахожу N [6][2]
-				all->plr.x_p = cor_x + PIX_SIZE / 2; // от центра игрока
-				all->plr.y_p = cor_y + PIX_SIZE / 2;
-			}
-			if (all->s[all->y][all->x] == 'S')
-			{
-				draw_cub(cor_x, cor_y, all, 0xE5E5E5);
-				all->plr.dir = M_PI_2; // 90 граудсов, но смотрит вниз
-				all->plr.x_p = cor_x + PIX_SIZE / 2;
-				all->plr.y_p = cor_y + PIX_SIZE / 2;
-				// draw_cub(cor_x, cor_y, mlx, win, 0x8E9AAF);
-				// my_mlx_pixel_put(mlx, win, cor_x, cor_y, 0x8E9AAF);
-			}
-			if (all->s[all->y][all->x] == 'W')
-			{
-				draw_cub(cor_x, cor_y, all, 0xE5E5E5);
-				all->plr.dir = M_PI; // влево
-				all->plr.x_p = cor_x + PIX_SIZE / 2;
-				all->plr.y_p = cor_y + PIX_SIZE / 2;
-				draw_cub(cor_x, cor_y, all, 0x8E9AAF);
-			}
-			if (all->s[all->y][all->x] == 'E')
-			{
-				all->plr.dir = 0;// вправо
-				all->plr.x_p = cor_x + PIX_SIZE / 2;
-				all->plr.y_p = cor_y + PIX_SIZE / 2;
-				draw_cub(cor_x, cor_y, all, 0x8E9AAF);
-			}
-			all->x++;
-			cor_x = cor_x + PIX_SIZE;
-		}
-		all->y++; // перешагиваю на след строку массива вниз 
-		cor_y = cor_y + PIX_SIZE;
-	}
-	printf("AFTER___________________draw_screen: \ndir: %f\n", all->plr.dir);
-	printf("x_pl_pos: %f\n", all->plr.x_p);
-	printf("y_pl_pos: %f\n", all->plr.y_p);
-	 ////////////////////////////////////////////////////////////////////////////////////////////
-	//mlx_put_image_to_window(all->mlx, all->win, all->img, 100, 100);
-
 }
 
 void	ft_cast_ray(t_all *all)
@@ -261,7 +180,7 @@ void	ft_cast_ray(t_all *all)
 
         all->l_2d = PIX_SIZE / 2 * (tan(M_PI_6)); // длина до стены в проекции 2д
     	all->length_real = sqrt(pow((save_pl_x - rem_x_p),(2)) + pow((save_pl_y - rem_y_p),(2))); // длина до стены реальная
-    	all->h_y_2d = (PIX_SIZE / all->length_real) * all->l_2d; // высота стены на проекции 2д
+    	//all->h_y_2d = (PIX_SIZE / all->length_real) * all->l_2d; // высота стены на проекции 2д
     	all->h_wall_3d  = (PIX_SIZE / all->length_real) *  all->l_2d; // высота стены реальная 
 	}
 	/////////////////////////////////////////////
@@ -272,19 +191,19 @@ void	ft_cast_ray(t_all *all)
 
 	printf("all->l_2d : %f\n", all->l_2d );
 	printf("all->length_real : %f\n", all->length_real );
-	printf("all->h_y_2d  : %f\n", all->h_y_2d );
+	//printf("all->h_y_2d  : %f\n", all->h_y_2d );
 	printf("all->h_wall_3d  : %f\n", all->h_wall_3d );
 	
 	printf("\n----------------------\n\n");
-	printf("ft_castr_ray : \n-------------dir: %f\n", all->plr.dir);
-	printf("-------------x_pl: %f\n", all->plr.x_p);
-	printf("-------------y_pl: %f\n", all->plr.y_p);
+	printf("ft_castr_ray : \n-----------dir: %f\n", all->plr.dir);
+	printf("-----------x_pl: %f\n", all->plr.x_p);
+	printf("-----------y_pl: %f\n", all->plr.y_p);
 }
 
-// void draw_3d(t_all *all)
-// {
-// if 
-// }
+void draw_3d(t_all *all)
+{
+	while ()
+}
 
 void draw_screen(t_all *all) /////////////////////////////////////
 {
@@ -388,8 +307,6 @@ int	press_key(int keycode, t_all *all) // esc
 		// all->plr.y_p += sin(all->plr.dir) * 4;
 		// all->plr.x_p += cos(all->plr.dir) * 4;
 	}
-	// 	//printf("%s","hello");
-	// 	//all->plr.x_p++;
 	if (keycode == 1) // S
 	{
 		//mlx_clear_window (all->mlx, all->win);
@@ -460,3 +377,4 @@ int main()
 	    //    int (void *mlx_ptr, int (*funct_ptr)(), void *param); !!!!! Зациклить действия и не чистить окно
 	mlx_loop(all.mlx);
 }
+
