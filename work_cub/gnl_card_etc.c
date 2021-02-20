@@ -154,51 +154,70 @@ void	ft_cast_ray(t_all *all)
 	// all->img = mlx_new_image(all->mlx, 808, 648);
 	// all->addr = mlx_get_data_addr(all->img, &all->bits_per_pixel, &all->line_length, &all->endian);
 	//mlx_put_image_to_window(all->mlx, all->win, all->img, 100, 100);	
-	all->plr.start = all->plr.dir - M_PI_6; // начало веера луча | /
-	all->plr.end = all->plr.dir + M_PI_6; // конец веера луча \ |
-	float rem_x_p = 0;
-	float rem_y_p = 0;
-	float save_pl_x = all->plr.x_p;
-	float save_pl_y = all->plr.y_p;
+	// all->plr.start = all->plr.dir - M_PI_6; // начало веера луча | /
+	// all->plr.end = all->plr.dir + M_PI_6; // конец веера луча \ |
+	// float rem_x_p = 0;
+	// float rem_y_p = 0;
+	printf("\nBEFORE---------------\n\n");
+	printf("--X_PLAYER-------x_pl: %f\n", all->plr.x_p);
+	printf("---X1-------x1: %f\n", all->x1);
 	
-	rem_x_p = all->plr.x_p;
-	rem_y_p = all->plr.y_p;
-	while (all->plr.start <= all->plr.end)
-	{
-		save_pl_x = rem_x_p;
-		save_pl_y = rem_y_p;
-		// rem_x_p = all->plr.x_p;
-		// rem_y_p = all->plr.y_p;
-		while (all->s[(int)save_pl_y / PIX_SIZE][(int)save_pl_x / PIX_SIZE] != '1') // пока не равно стене, печатаю попиксельно луч
-		{
-			save_pl_x += cos(all->plr.start);
-			save_pl_y += sin(all->plr.start);                      
-			my_mlx_pixel_put(all, save_pl_x, save_pl_y, 0x22223B);
-			// my_mlx_pixel_put(all, all->plr.x_p, all->plr.y_p, 0x22223B);
-		}
-		all->plr.start = all->plr.start + M_PI_3 / SCREEN_WIDTH;
 
-        all->l_2d = PIX_SIZE / 2 * (tan(M_PI_6)); // длина до стены в проекции 2д
-    	all->length_real = sqrt(pow((save_pl_x - rem_x_p),(2)) + pow((save_pl_y - rem_y_p),(2))); // длина до стены реальная
-    	//all->h_y_2d = (PIX_SIZE / all->length_real) * all->l_2d; // высота стены на проекции 2д
-    	all->h_wall_3d  = (PIX_SIZE / all->length_real) *  all->l_2d; // высота стены реальная 
+	if (all->s[(int)all->plr.y_p / PIX_SIZE][(int)all->plr.x_p / PIX_SIZE] == '1')
+	{
+		all->plr.x_p = all->x1 ;
+		all->plr.y_p = all->y1 ;
 	}
+	all->x1 = all->plr.x_p;
+	all->y1 = all->plr.y_p;
+	// rem_x_p = all->plr.x_p;
+	// rem_y_p = all->plr.y_p;
+	// // // while (all->plr.start <= all->plr.end)
+	// // {
+	// 	all->x1 = rem_x_p;
+	// 	all->y1 = rem_y_p;
+	// 	rem_x_p = all->plr.x_p;
+	// 	rem_y_p = all->plr.y_p;
+	// if (all->s[(int)all->y1 / PIX_SIZE][(int)all->x1 / PIX_SIZE] == '1')
+	// {
+		
+	// }
+	while (all->s[(int)all->y1 / PIX_SIZE][(int)all->x1 / PIX_SIZE] != '1') // пока не равно стене, печатаю попиксельно луч
+	{
+		all->x1 += cos(all->plr.dir);
+		all->y1 += sin(all->plr.dir);                      
+		my_mlx_pixel_put(all, all->x1, all->y1, 0x22223B);
+		// my_mlx_pixel_put(all, all->plr.x_p, all->plr.y_p, 0x22223B);
+	}
+	// 	all->plr.start = all->plr.start + M_PI_3 / SCREEN_WIDTH;
+
+    //     all->l_2d = PIX_SIZE / 2 * (tan(M_PI_6)); // длина до стены в проекции 2д
+    // 	all->length_real = sqrt(pow((all->x1 - rem_x_p),(2)) + pow((all->y1 - rem_y_p),(2))); // длина до стены реальная
+    // 	//all->h_y_2d = (PIX_SIZE / all->length_real) * all->l_2d; // высота стены на проекции 2д
+    // 	all->h_wall_3d  = (PIX_SIZE / all->length_real) *  all->l_2d; // высота стены реальная 
+	// }
+
 	/////////////////////////////////////////////
 	//after_draw_screen(all);
 	// mlx_put_image_to_window(all->mlx, all->win, all->img, 100, 100);
 	// after_draw_screen(all);
-	printf("\n----------------------\n");
+	// printf("\n----------------------\n");
 
-	printf("all->l_2d : %f\n", all->l_2d );
-	printf("all->length_real : %f\n", all->length_real );
-	//printf("all->h_y_2d  : %f\n", all->h_y_2d );
-	printf("all->h_wall_3d  : %f\n", all->h_wall_3d );
+	// printf("all->l_2d : %f\n", all->l_2d );
+	// printf("all->length_real : %f\n", all->length_real );
+	// //printf("all->h_y_2d  : %f\n", all->h_y_2d );
+	// printf("all->h_wall_3d  : %f\n", all->h_wall_3d );
 	
 	printf("\n----------------------\n\n");
 	printf("ft_castr_ray : \n-----------dir: %f\n", all->plr.dir);
-	printf("-----------x_pl: %f\n", all->plr.x_p);
-	printf("-----------y_pl: %f\n", all->plr.y_p);
+	printf("--X_PLAYER-------x_pl: %f\n", all->plr.x_p);
+	printf("---X1-------x1: %f\n", all->x1);
+// printf("\n----------------------\n\n");
+// 	printf("-----------x1: %f\n", all->x1);
+// 	printf("-----------y1: %f\n", all->y1);
 }
+
+		
 
 void draw_3d(t_all *all)
 {
