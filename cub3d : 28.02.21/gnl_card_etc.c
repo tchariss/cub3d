@@ -96,10 +96,48 @@ void ft_to_3d(t_all *all)
 		all->y++;
 	}
 	all->count++;
-	// printf("\nAFTER - Сount - %i\n", all->count);
-	// printf("AFTER - Сoordinate_y - %i", all->y);
 	//  mlx_put_image_to_window(all->mlx, all->win, all->img, 0, 0); // помещает img в окно или рисует изображение внутри
 }
+
+
+// void ft_to_3d(t_all *all)
+// {
+// 	int save_wall_y = 0;
+// 	all->y = 0;
+// 	while (all->y != SCREEN_HEIGHT)
+// 	{
+// 		if (all->y <= ( SCREEN_HEIGHT / 2 ) - (all->height_wall / 2))
+// 		{
+// 			my_mlx_pixel_put(all, all->count, all->y, 0xd2ecf9);
+// 			save_wall_y = all->y;
+// 		}
+// 		else if ((all->y >= ( SCREEN_HEIGHT / 2 ) - ( all->height_wall / 2 )) && 
+// 		(all->y <= ( SCREEN_HEIGHT / 2 ) + ( all->height_wall / 2 )))  //  мои стены
+// 		{
+// 			if (all->st[((int)all->save_y_p + 1)/ PIX_SIZE][((int)all->save_x_p + 1) / PIX_SIZE] == '1' && 
+// 			all->st[((int)all->save_y_p - 1)/ PIX_SIZE][((int)all->save_x_p + 1) / PIX_SIZE] != '1')
+// 				my_mlx_pixel_put(all, all->count, all->y, 0x0081ff); // голубой
+// 			else if (all->st[((int)all->save_y_p - 1 )/ PIX_SIZE][((int)all->save_x_p - 1) / PIX_SIZE] == '1' && 
+// 			all->st[((int)all->save_y_p + 1)/ PIX_SIZE][((int)all->save_x_p - 1) / PIX_SIZE] != '1')
+// 				my_mlx_pixel_put(all, all->count, all->y, 0xfff37d); // светло-золотой
+// 			else if (all->st[((int)all->save_y_p - 1 )/ PIX_SIZE][((int)all->save_x_p + 1) / PIX_SIZE] == '1')
+// 				my_mlx_pixel_put(all, all->count, all->y, 0xcc81ff); //фиолетовый
+// 			else if (all->st[((int)all->save_y_p + 1)/ PIX_SIZE][((int)all->save_x_p - 1) / PIX_SIZE] == '1')
+// 				my_mlx_pixel_put(all, all->count, all->y, 0xffb27d); // светло-оранжевый
+// 			// else
+// 			// 	my_mlx_pixel_put(all, all->count, all->y, 0xFFC0BE); //0xFFC0BE
+// 			// save_wall_y++;
+// 		}
+// 		else 
+// 		{
+// 			my_mlx_pixel_put(all, all->count, all->y, 0xadf7ae);
+// 		}
+		
+// 		all->y++;
+// 	}
+// 	all->count++;
+// }
+
 
 int main()
 {
