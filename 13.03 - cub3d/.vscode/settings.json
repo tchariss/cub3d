@@ -1,0 +1,16 @@
+{
+    "files.associations": {
+        "type_traits": "c",
+        "__locale": "c",
+        "mlx.h": "c",
+        "FFFFFFF.C": "cpp",
+        "bitset": "c",
+        "cub3d.h": "c",
+        "complex": "c",
+        "algorithm": "c",
+        "__bit_reference": "c",
+        "chrono": "c",
+        "unordered_map": "c"
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
+}
